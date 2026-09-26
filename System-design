@@ -1,0 +1,55 @@
+System Design / Microservices
+
+Q What are the SOLID principles? Which design patterns have you used in your project
+
+Q Design a fund transfer system handling millions of transactions
+
+Q What if Account A is debited but Account B's credit fails?
+
+Q How do you prevent duplicate transactions?
+
+Q How do you maintain transaction ordering for an account?
+
+Q How do Kafka partitions help with ordering?
+
+Q How would you design for idempotency?
+
+Q Explain the Saga Pattern for fund transfer
+
+Q Design the architecture and flow of a Saga-based fund transfer system
+
+Q Which database would you choose and why?
+
+Q How do microservices communicate?
+
+Q REST vs Kafka — when would you use each?
+
+Q How do you handle cascading failures?
+
+Q How would you process 1 lakh messages/second using Kafka?
+
+Q Design a fund transfer system capable of handling millions of transactions.
+
+Q What happens if Account A is debited but Account B’s credit fails?
+
+Q How would you prevent duplicate transactions if the user clicks multiple times?
+
+Q How would you ensure transactions for an account are processed in order?
+
+Q How would Kafka partitions help with ordering?
+
+Q Which design would you use to avoid duplicate transactions and ensure correct processing?
+
+Q Explain how the Saga pattern can be used for fund transfer.
+
+Q Explain the architecture/flow of a Saga-based fund transfer system.
+
+Q Which database would you choose and why?
+
+Q How do microservices communicate with each other?
+
+Q When would you use REST vs Kafka?
+
+Q How would you handle cascading failures in microservices?
+
+Q How would you process 1 lakh messages/second in Kafka?

@@ -1,0 +1,1 @@
+3.) Write a Java program to find duplicate characters and their frequency in a string.
