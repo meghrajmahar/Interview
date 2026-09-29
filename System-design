@@ -1,4 +1,8 @@
 System Design / Microservices
+Understands the use of basic design patterns (e.g., factory, adaptor, singleton, composite, observer, strategy, inversion of control) 
+
+Understands use cases for advanced design patterns (e.g., service-to-worker, MVC, API gateway, intercepting filter, dependency injection, lazy loading, all from the gang of four) to implement efficient code 
+
 
 Q What are the SOLID principles? Which design patterns have you used in your project
 

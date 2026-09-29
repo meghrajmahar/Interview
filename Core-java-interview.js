@@ -7,7 +7,7 @@
         Java 11 introduced the modern HttpClient and several String and File API improvements. 
 
         Java 17 introduced features such as Records, Sealed Classes and Pattern Matching improvements, 
-                and it is an LTS release. 
+                and it is an LTS release.
 
         Java 21, another LTS release, introduced Virtual Threads, Pattern Matching for switch, 
                 Record Patterns and Sequenced Collections. 
@@ -203,7 +203,13 @@
     | anyOf()           | **Multiple CompletableFutures me se kisi ek ke complete hote hi continue karna ho.**      |
 
 
+        Runnable = kaam karo, result mat do
+        Callable = kaam karo, result do
 
+        | Method      | Runnable | Callable | Return   |
+        | ----------- | -------- | -------- | -------- |
+        | execute()   | ✅       | ❌       | void.     |
+        | submit()    | ✅       | ✅       | Future    |
 
 14. Records — Java 16 : For immutable data-carrying objects with much less boilerplate.
         public record UserDTO(
@@ -1044,6 +1050,36 @@ Q How do you handle transactions in Spring Boot?
     by the business use case, and keep the transaction boundary as small as practical.
 
 
+
+
+
+·      Your Spring Boot API suddenly becomes slow in production. How would you find the bottleneck?
+·      Design a fund transfer system capable of handling millions of transactions.
+·       Two threads update the same record simultaneously. How would you prevent inconsistent data?
+·      What happens if Account A is debited but Account B’s credit fails?
+·      Why can @Transactional fail when a method is called from another method in the same class?
+·      Your database connection pool is exhausted. What would you check first?
+·      How would you prevent duplicate transactions if the user clicks multiple times?
+·      How would you ensure transactions for an account are processed in order?
+·      How would Kafka partitions help with ordering?
+·      A microservice calls another service that takes 10 seconds to respond. How would you prevent your application from getting stuck?
+·      Which design would you use to avoid duplicate transactions and ensure correct processing?
+·      Explain how the Saga pattern can be used for fund transfer.
+·      How would you use ElastiCache to improve microservice performance?
+·      How would you debug a 401 Unauthorized error?
+·      What is the N+1 problem in Hibernate/JPA and how would you solve it?
+·      How would you monitor Java microservices using CloudWatch, metrics, and distributed tracing?
+·      Which database would you choose and why?
+·      How would you handle distributed transactions using the Saga pattern?
+·      How would you handle cascading failures in microservices?
+·      How would you process 1 lakh messages/second in Kafka?
+·      What is the N+1 problem in Hibernate/JPA and how would you solve it?
+·      How would you use ElastiCache to improve microservice performance?
+·      How would you monitor Java microservices using CloudWatch, metrics, and distributed tracing?
+·      How would you troubleshoot high CPU usage in a Java application?
+·      Difference/relationship between OAuth 2.0, JWT and OpenID Connect.
+·      Explain JWT structure and JWT authentication/validation flow.
+·  Your API works fine locally but fails in production. What will you investigate?
 
 
 `

@@ -1,7 +1,7 @@
 `
 Q How does spring boot application handle dependency injection internally ? Explain bean life cycle ?
-    Dependency Injection means the Spring container creates and manages objects and supplies their required dependencies 
-    instead of the application creating those dependencies itself.
+    Dependency Injection means the Spring container(ApplicationContext) creates and manages objects and supplies their required 
+    dependencies instead of the application creating those dependencies itself.
 
     The important object to remember is:
         ApplicationContext : It is the Spring container that manages beans.
@@ -48,14 +48,14 @@ Q How does spring boot application handle dependency injection internally ? Expl
                             custom destroy
 
 
-How does Spring Boot handle Dependency Injection internally?"
+Q How does Spring Boot handle Dependency Injection internally?"
     Spring Boot starts the Spring ApplicationContext, which acts as the IoC container. During startup, 
     Spring scans components and configuration classes and creates BeanDefinitions. 
     When a bean needs a dependency, the container resolves the required bean from its BeanFactory and injects it, 
     preferably through the constructor. Spring then applies BeanPostProcessors and initialization callbacks before making 
     the bean available for use."
 
-Explain the Bean Lifecycle?
+Q Explain the Bean Lifecycle?
     First Spring creates the BeanDefinition and instantiates the bean. Then dependencies are injected. 
     After that, the bean goes through the BeanPostProcessor lifecycle, including initialization callbacks 
     such as @PostConstruct. Once initialization is complete, the bean is ready for use. During application shutdown, 
@@ -169,6 +169,10 @@ Q How do ya handle partial failures when multiple downstreams evolved?
 
     7. Retry : For temporary downstream failures: This is exponential backoff.
                 Usually add jitter so many clients don't retry simultaneously.
+                Jitter:  adds a random delay to retry intervals so that multiple clients do not retry at the same time, helping 
+                            prevent sudden load spikes. 
+                            Retry + Random Delay = Jitter
+                            Exponential Backoff → delay gradually increase karta hai
 
     8. Circuit Breaker : This prevents cascading failures.
                             Circuit breaker: : Your Service -> Circuit Breaker -> Downstream
@@ -238,6 +242,19 @@ Q What is the N+1 problem in Hibernate/JPA and how would you solve it?
 
     Solutions: JOIN FETCH → EntityGraph → Batch Fetching
 
+        JOIN FETCH :    @Query("""
+                        SELECT o
+                        FROM Order o
+                        JOIN FETCH o.customer
+                        """)
+                        List<Order> findAllWithCustomer();
+
+        EntityGraph :   kaunsi related entity fetch karni hai.
+                        @EntityGraph(attributePaths = {"customer"})
+                        List<Order> findAll();
+
+        Batch Fetching : SELECT * FROM customer WHERE id IN (1, 2, 3, 4, 5, ...);
+
 Q Microservices design patterns
             | Pattern                  | Purpose                               |
             | ------------------------ | ------------------------------------- |
@@ -288,6 +305,7 @@ Q API Gateway and inter-service communication
             Request logging
             Load balancing
             Sometimes response aggregation
+            
     2) 2. Inter-Service Communication : Microservices communicate mainly in two ways:
                     A. Synchronous : One service directly calls another and waits for response.
                                      Common technologies : REST/HTTP, gRPC, WebClient / RestClient / OpenFeign
@@ -323,8 +341,6 @@ Q What is a Spring Bean? What are @Configuration and @Bean?
             
             @Configuration → Where to define beans
             @Bean → What object to create
-
-
 
 Q Explain the Spring Bean Lifecycle.
             Spring Container
@@ -400,6 +416,14 @@ Q How does Spring Boot Auto-Configuration work?
     Spring Boot Auto-Configuration checks the dependencies and configuration in the application and automatically 
     creates the required beans. It uses conditional annotations to apply configuration only when the required conditions are met.
 
+    @ConditionalOnClass + @ConditionalOnMissingBean
+    
+    @ConditionalOnMissingBean : Agar user ne already same type ka bean nahi banaya hai, tab Spring apna default bean banaye.
+                                Bean already nahi hai → Spring default bean create karega.
+
+    @ConditionalOnClass : Agar koi class classpath mein available hai, tab configuration apply karo.
+                            @ConditionalOnClass(DataSource.class)
+                            
 Q What is @EnableAutoConfiguration?
     @EnableAutoConfiguration tells Spring Boot to automatically configure the application based on the 
     dependencies available in the classpath.
@@ -475,5 +499,5 @@ Q How do you implement authentication and authorization using Spring Security an
 
 
 
-    
+
 `

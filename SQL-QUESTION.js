@@ -75,15 +75,86 @@ Q How do you analyze and optimize a slow SQL query running running on millions o
         | Query normally execute nahi hoti | Query actually execute hoti hai |
 
 Q A table grows from thousands to millions of records. How would you maintain performance?
-Q How do you design database schema to handle high volume transactional data?
-• Have you worked with stored procedures and functions?
-• What is a JOIN?
-• LEFT JOIN vs RIGHT JOIN
-• DELETE vs TRUNCATE vs DROP
-• UNION vs UNION ALL
-• How do you create a VIEW?
-• How would you find the top 5 salaries?
-• How would you find the 5th highest salary?
+    I would focus on query optimization, indexing, and data management.
 
+        Main things I would do:
+        Indexes → Add indexes on columns frequently used in WHERE, JOIN, and ORDER BY.
+        Query optimization → Use EXPLAIN ANALYZE to find slow queries.
+        Pagination → Don't fetch millions of records at once.
+        Avoid SELECT * → Fetch only required columns.
+        Partitioning → For very large tables, partition data based on a suitable key such as date.
+        Archiving → Move old/inactive data to archive storage when appropriate.
+        Connection pool tuning → Make sure DB connections are properly configured.
+        Caching → Cache frequently accessed data where appropriate.
+
+    As the table grows, I first identify slow queries using monitoring and EXPLAIN ANALYZE. I add appropriate indexes, 
+    optimize queries, use pagination, and fetch only required data. For very large tables, 
+    I consider partitioning and archiving, and use caching for frequently accessed data.
+
+Q How do you design database schema to handle high volume transactional data?
+    For high-volume transactions, I focus on efficient writes, reads, indexing, and scalability.
+
+        Main points:
+            Proper schema design → Normalize transactional data to avoid unnecessary duplication.
+            Indexes → Add indexes for frequently searched/joined columns, but avoid excessive indexes because they slow down writes.
+            Partitioning → Partition very large tables, often by date or another suitable key.
+            Pagination → Don't load millions of rows in one query.
+            Archiving → Move old transactional data to cheaper/archive storage when appropriate.
+            Transactions → Keep transactions short and update only what is required.
+            Connection pooling → Use a properly configured DB connection pool.
+            Read/write scaling → Where the database supports it, use read replicas for read-heavy workloads.
+
+Q What is a JOIN?
+        SELECT c.name, o.amount
+        FROM customers c
+        JOIN orders o
+        ON c.id = o.customer_id;
+    A JOIN is used to combine rows from multiple tables based on a related column, such as a primary key and foreign key.
+
+Q LEFT JOIN vs RIGHT JOIN?
+    In a LEFT JOIN, all rows from the left table are returned, even if there is no matching row in the right table. 
+    In a RIGHT JOIN, all rows from the right table are returned, even if there is no matching row in the left table.
+
+Q DELETE vs TRUNCATE vs DROP?
+    | Command      | What it does                 | `WHERE` | Table remains? |
+    | ------------ | ---------------------------- | ------- | -------------- |
+    | **DELETE**   | Deletes selected rows        | ✅ Yes   | ✅ Yes          |
+    | **TRUNCATE** | Deletes **all rows**         | ❌ No    | ✅ Yes          |
+    | **DROP**     | Deletes the **entire table** | ❌ No    | ❌ No           |
+
+Q UNION vs UNION ALL?
+    UNION combines result sets and removes duplicate rows, while UNION ALL combines result sets without removing duplicates. 
+    UNION ALL is generally faster when duplicate removal is not required.
+        SELECT name FROM customers
+        UNION -----> Here UNION/UNIONALL
+        SELECT name FROM suppliers;
+
+Q How would you find the top 5 salaries?
+    SELECT DISTINCT salary
+    FROM employees
+    ORDER BY salary DESC
+    LIMIT 5;
+
+Q How would you find the 5th highest salary?
+    SELECT DISTINCT salary
+    FROM employees
+    ORDER BY salary DESC
+    LIMIT 1 OFFSET 4;
+
+Q How do you create a VIEW?
+    A VIEW is a virtual table created from a SQL query. We use CREATE VIEW followed by the query that defines the view. 
+    It is useful for simplifying complex queries, reusing query logic, and controlling which columns or rows users can access.
+
+    CREATE VIEW high_salary_employees AS
+    SELECT id, name, salary
+    FROM employees
+    WHERE salary > 50000;
+
+    SELECT * FROM high_salary_employees;
+
+Q Have you worked with stored procedures and functions?
+    Procedure → Perform operations
+    Function → Return a value
+            
 
 `
